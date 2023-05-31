@@ -38,7 +38,7 @@ class Chat:
         chat.__chat_admin_name = json_object["chat_admin_name"]
         chat.__chat_password = json_object["chat_password"]
         chat.__members = json_object["chat_admin_name"]
-        chat.__messages_id = json_object["message_id"]
+        chat.__messages_id = json_object["messages_id"]
 
         return chat
 
