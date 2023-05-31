@@ -5,7 +5,7 @@ setup(
     name="lib_for_messanger",
     version="0.01",
     description="library for my messenger",
-    url="https://github.com/VPG1/lib_for_messanger.git",
+    url="https://github.com/VPG1/lib_for_messanger",
     author="Kirill Malihtorovich",
     author_email="mmalihtorovic@gmail.com",
     classifiers=[
