@@ -26,6 +26,6 @@ class User:
         user = User("", "")
         user.__name = json_object["name"]
         user.__password = json_object["password"]
-        user.__chatsId = json_object["chats"]
+        user.__chats = json_object["chats"]
 
         return user
