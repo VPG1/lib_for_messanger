@@ -10,7 +10,7 @@ class FileService:
         self.__data_list = data_list
 
         if not os.path.isfile(path):
-            my_file = open(file_path, "w+")
+            my_file = open(file_path, "w")
             my_file.write("[]")
             my_file.close()
         else:
@@ -22,9 +22,9 @@ class FileService:
                 print(self.__data_list)
 
     def save_data(self):
-        with open(self.__file_path, "r+") as file:
+        with open(self.__file_path, "w") as file:
             json_array = []
             for el in self.__data_list:
                 json_array.append(el.to_json_object())
-            print(json_array)
+            # print(json_array)
             json.dump(json_array, file)
