@@ -5,7 +5,7 @@ setup(
     name="lib_for_messanger",
     version="0.01",
     description="library for my messenger",
-    url="https://github.com/SeMsei/pythn_igi/tree/lab3/Lab_3",
+    url="https://github.com/VPG1/lib_for_messanger.git",
     author="Kirill Malihtorovich",
     author_email="mmalihtorovic@gmail.com",
     classifiers=[
