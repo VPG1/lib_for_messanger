@@ -13,6 +13,9 @@ class User:
     def get_password(self):
         return self.__password
 
+    def get_chats(self):
+        return self.__chats
+
     def join_to_chat(self, chat_name):
         self.__chats.append(chat_name)
 
