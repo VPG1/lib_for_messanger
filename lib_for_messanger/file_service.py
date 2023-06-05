@@ -16,9 +16,14 @@ class FileService:
         self.__data_list = data_list
 
         drive = GoogleDrive(FileService.gauth)
-        file = drive.CreateFile({"title": f"{self.__file_name}"})
 
-        json_array = json.loads(file.GetContentString())
+        json_array = []
+        file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+        for file in file_list:
+            if file["title"] == self.__file_name:
+                json_array = json.loads(file.GetContentString())
+                break
+
         for json_object in json_array:
             self.__data_list.append(object_class.from_json_object(json_object))
 
@@ -47,8 +52,7 @@ class FileService:
         for el in self.__data_list:
             json_array.append(el.to_json_object())
         file.SetContentString(json.dumps(json_array))
-        file.upload()
-
+        file.Upload()
 
         # with open(self.__file_name, "w") as file:
         #     json_array = []
