@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="lib_for_messanger",
-    version="0.8",
+    version="0.9",
     description="library for my messenger",
     url="https://github.com/VPG1/lib_for_messanger",
     author="Kirill Malihtorovich",
