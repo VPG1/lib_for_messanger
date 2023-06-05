@@ -20,6 +20,9 @@ class Chat:
     def get_members(self):
         return self.__members
 
+    def get_messages_id(self):
+        return self.__messages_id
+
     def add_new_message_id(self, message_id):
         self.__messages_id.append(message_id)
 
