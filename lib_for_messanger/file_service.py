@@ -6,19 +6,35 @@ from pydrive.drive import GoogleDrive
 
 class FileService:
     gauth = None
+    drive = None
 
     def __init__(self, file_path, data_list, object_class):
-        if FileService.gauth is None:
+        if FileService.gauth is None and FileService.drive is None:
+
             gauth = GoogleAuth()
-            gauth.LocalWebserverAuth()
+            # Try to load saved client credentials
+            gauth.LoadCredentialsFile("mycreds.txt")
+            if gauth.credentials is None:
+                # Authenticate if they're not there
+                gauth.LocalWebserverAuth()
+            elif gauth.access_token_expired:
+                # Refresh them if expired
+                gauth.Refresh()
+            else:
+                # Initialize the saved creds
+                gauth.Authorize()
+            # Save the current credentials to a file
+            gauth.SaveCredentialsFile("mycreds.txt")
+
+            # gauth = GoogleAuth()
+            # gauth.LocalWebserverAuth()
+            FileService.drive = GoogleDrive(FileService.gauth)
 
         self.__file_name = file_path
         self.__data_list = data_list
 
-        drive = GoogleDrive(FileService.gauth)
-
         json_array = []
-        file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+        file_list = FileService.drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
         for file in file_list:
             if file["title"] == self.__file_name:
                 json_array = json.loads(file.GetContentString())
@@ -45,8 +61,15 @@ class FileService:
         #         print(self.__data_list)
 
     def save_data(self):
-        drive = GoogleDrive(FileService.gauth)
-        file = drive.CreateFile({"title": f"{self.__file_name}"})
+        file = None
+        file_list = FileService.drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+        for _file in file_list:
+            if _file["title"] == self.__file_name:
+                file = _file
+                break
+
+        if file is None:
+            return
 
         json_array = []
         for el in self.__data_list:
